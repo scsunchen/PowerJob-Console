@@ -214,7 +214,9 @@ const cn = {
         'copy': '复制',
         'condition': '判断节点',
         'workflowChild': '子流程节点',
-        'importWorkflowTitle': '工作流节点引入'
+        'importWorkflowTitle': '工作流节点引入',
+        'user':'人工节点'
+
     },
     ...zhLocale
 };

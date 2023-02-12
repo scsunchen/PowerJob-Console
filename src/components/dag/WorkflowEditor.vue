@@ -171,7 +171,22 @@
                     alt
                   />
                 </el-form-item>
+                <el-form-item
+                    :label="$t('message.user')"
+                    v-if="nodeInfo.type != '2'"
+                >
+                  <el-switch v-model="nodeInfo.user"></el-switch>
+                  <img
+                      class="job-panl-icon"
+                      v-if="nodeInfo.user"
+                      src="../../assets/user-fill.svg"
+                      height="18"
+                      width="18"
+                      alt
+                  />
+                </el-form-item>
               </el-form>
+
               <!-- <MonacoEditor
                     :code="nodeInfo.nodeParams"
                     key="nodeParams"
@@ -298,7 +313,9 @@ import PowerWorkflow from "./PowerWorkflow";
 import WorkflowManager from "../views/WorkflowManager";
 
 function nodeInfoChange(icon, index) {
+
   return function (value) {
+    console.info(icon,index)
     if (!this.selectNode) return;
     const group = this.selectNode.getContainer();
     const current = group.getChildByIndex(index);
@@ -307,6 +324,7 @@ function nodeInfoChange(icon, index) {
     } else {
       current.attr({ img: "" });
     }
+
   };
 }
 
@@ -320,6 +338,8 @@ const nodeType = {
       titleText: item.nodeName,
       icon1: item.enable ? require("../../assets/start.svg") : "",
       icon2: item.skipWhenFailed ? require("../../assets/skip.svg") : "",
+
+      icon3: item.user ? require("../../assets/user-fill.svg") : "",
     };
   },
   2: (item) => {
@@ -344,6 +364,7 @@ const nodeType = {
       titleText: item.nodeName,
       icon1: item.enable ? require("../../assets/start.svg") : "",
       icon2: item.skipWhenFailed ? require("../../assets/skip.svg") : "",
+      icon3: item.user ? require("../../assets/user-fill.svg") : "",
     };
   },
 };
@@ -377,6 +398,7 @@ export default {
         nodeParams: "",
         enable: true,
         skipWhenFailed: true,
+        user: true,
       },
       timeExpressionTypeOptions: [
         { key: "API", label: "API" },
@@ -519,6 +541,7 @@ export default {
         nodeParams: node.nodeParams,
         enable: node.enable,
         skipWhenFailed: node.skipWhenFailed,
+        user: node.user,
         id: item.get("model").nodeId || item.get("model").id,
       };
     },
@@ -613,6 +636,7 @@ export default {
           appId: item.appId,
           enable: item.enable,
           skipWhenFailed: item.skipWhenFailed,
+          user:item.user,
           nodeName: item.jobName,
           jobId: item.id,
           nodeParams: item.jobParams,
@@ -677,6 +701,7 @@ export default {
         nodeParams: this.nodeInfo.nodeParams,
         enable: this.nodeInfo.enable,
         skipWhenFailed: this.nodeInfo.skipWhenFailed,
+        user:this.nodeInfo.user
       };
 
       this.$message.success(this.$t("message.success"));
@@ -766,6 +791,9 @@ export default {
     "nodeInfo.skipWhenFailed": {
       handler: nodeInfoChange(require("../../assets/skip.svg"), 4),
     },
+    "nodeInfo.user": {
+      handler: nodeInfoChange(require("../../assets/user-fill.svg"), 5)
+    }
   },
 };
 </script>

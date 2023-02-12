@@ -285,7 +285,7 @@ export default {
             id: `${item.nodeId}`,
             type: "max-diamond-node",
             text: item.nodeName ? item.nodeName : "判断",
-            size: [15, 80], 
+            size: [15, 80],
             style: {
               sideLength: 80,
               textStyle: {
@@ -320,6 +320,7 @@ export default {
           titleText: item.nodeName,
           icon1: item.enable ? require("../../assets/start.svg") : "",
           icon2: item.skipWhenFailed ? require("../../assets/skip.svg") : "",
+          icon3: item.user ? require("../../assets/user-fill.svg") : "",
           // taskStatus: text,
           ...statusValue,
           style: statusStyle,
@@ -444,7 +445,7 @@ export default {
     },
   },
 };
-</script>    
+</script>
 <style scoped>
 *,
 *::before,

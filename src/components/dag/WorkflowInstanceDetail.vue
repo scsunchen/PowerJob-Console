@@ -72,16 +72,16 @@
         </el-row>
         <el-row>
             <div>
-                <PowerWorkFlow 
-                    v-if="peworkflowDAG.nodes.length > 0" 
+                <PowerWorkFlow
+                    v-if="peworkflowDAG.nodes.length > 0"
                     :rightFixed="421"
-                    :nodes="peworkflowDAG.nodes" 
-                    :edges="peworkflowDAG.edges" 
-                    :selectNode="selectNode" 
+                    :nodes="peworkflowDAG.nodes"
+                    :edges="peworkflowDAG.edges"
+                    :selectNode="selectNode"
                     :defaultWidthInc="245"
                     :interceptSelectedNode="interceptSelectedNode"
                     mode="view"
-                    @getDag="getDag" 
+                    @getDag="getDag"
                     @onSelectedNode="handleSelectedNode"
                     @onClearSelectNode="handleClearSelectNode"
                 >
@@ -97,8 +97,8 @@
                             </el-tooltip>
                         </div>
                     </template>
-                    <InstanceDetail 
-                        :instance-id="currentInstanceId" 
+                    <InstanceDetail
+                        :instance-id="currentInstanceId"
                         :fixedWidth="400"
                         :nodeDetail="nodeDetail"
                     >
@@ -115,13 +115,19 @@
                                     <span class="title">{{currentNodeInfo.skipWhenFailed ? $t('message.yes') : $t('message.no')}}</span>
                                 </el-col>
                             </el-row>
+                          <el-row class="job-detail-text" v-if="nodeDetail && nodeDetail.nodeType != 2">
+                            <el-col :span="24">
+                              <span class="power-job-text">{{$t('message.user')}}:</span>
+                              <span class="title">{{currentNodeInfo.user ? $t('message.yes') : $t('message.no')}}</span>
+                            </el-col>
+                          </el-row>
                            <el-row class="job-detail-text" v-if="nodeDetail && nodeDetail.nodeType == 2">
                                  <el-col :span="24">
                                     <span class="power-job-text" :style="{width: nodeDetail.nodeType == 2 ? '64px' : ''}">{{$t('message.nodeParams')}}:</span>
                                     <div :style="{paddingTop: '10px'}">
                                         <JSEditor :code="nodeDetail.nodeParams" key="nodeParams" :editorOptions="{readOnly: true}"></JSEditor>
                                     </div>
-                                    
+
                                     <!-- <span class="title">{{nodeDetail.nodeParams}}</span> -->
                                 </el-col>
                             </el-row>
@@ -189,7 +195,7 @@
             async markedSuccess() {
                 // console.log(this.selectNode)
                 if(!(this.selectNode && this.selectNode.get('model').status == 4)) return;
-                
+
                 const data = {
                     appId: this.$store.state.appInfo.id,
                     wfInstanceId: this.$route.params.wfInstanceId,
@@ -199,7 +205,7 @@
                 await this.axios.get('/wfInstance/markNodeAsSuccess', {
                     params: data
                 });
-                
+
                 this.changeStatusSuccess();
                 this.$message.success(this.$t("message.success"));
             },
@@ -245,7 +251,7 @@
             /** node 拦截判断 */
             interceptSelectedNode(node) {
                 const model = node.get('model');
-                
+
                 console.log()
                 return model.instanceId || model.nodeType == 2;
             },
@@ -256,7 +262,7 @@
                 const instanceId = model.instanceId;
                 const type = model.nodeType;
                 console.log(model);
-                
+
                 console.log(instanceId);
                 if(type === 2 || type == 3) {
                     console.log('1111');
@@ -265,7 +271,7 @@
                     if(!instanceId) this.$message.warning(this.$t('message.ntfClickNoInstanceNode'));
                     this.nodeDetail = null;
                 }
-                
+
                 this.currentInstanceId = instanceId;
                 this.selectNode = node;
                 this.currentNodeInfo = node.get('model');
@@ -342,7 +348,7 @@
         text-overflow:ellipsis;
         display: inline-block;
     }
-    
+
 </style>
 
 <style>
