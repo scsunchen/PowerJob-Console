@@ -3,13 +3,13 @@
 
          <div id="head">
              <el-row type="flex" class="row-bg" justify="end">
-                 <el-col span="2">
+                 <el-col :span="2">
                      <el-button type="primary" plain @click="appRegisterFormVisible = true">{{$t('message.appRegister')}}</el-button>
                  </el-col>
-                 <el-col span="2">
+                 <el-col :span="2">
                      <el-button type="success" plain @click="userRegisterFormVisible = true">{{$t('message.userRegister')}}</el-button>
                  </el-col>
-                 <el-col span="2">
+                 <el-col :span="2">
                      <el-dropdown @command="this.common.switchLanguage">
                         <span class="el-dropdown-link">
                             <p style="color:#ffffff">Language<i class="el-icon-arrow-down el-icon--right"/></p>
@@ -38,7 +38,7 @@
                              :placeholder="$t('message.appName')"/>
                  </el-form-item>
                  <el-form-item label-width="">
-                     <el-input v-model="appLoginForm.password" :placeholder="$t('message.password')" type="password" show-password="true"/>
+                     <el-input v-model="appLoginForm.password" :placeholder="$t('message.password')" type="password" :show-password="true"/>
                  </el-form-item>
                  <el-form-item>
                      <el-button type="primary" @click="login" class="loginWrap">{{$t('message.login')}}</el-button>
